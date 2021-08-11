@@ -1,0 +1,10 @@
+.popup__name{
+  font-family: inherit;
+  max-width: 358px;
+  /* border-bottom: rgba(0,0 0, .2); */
+  color: #000;
+}
+.popup__name:focus{
+  outline: none;
+  border-bottom: rgba(0,0 0, .2);
+}
