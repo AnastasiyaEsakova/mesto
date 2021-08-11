@@ -7,3 +7,11 @@
   margin-top: 67px;
   margin-bottom: 60px;
 }
+@media screen and (max-width: 320px){
+  .footer__copyright{
+    margin-top: 48px;
+    margin-bottom: 33px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

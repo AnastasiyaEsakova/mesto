@@ -2,3 +2,8 @@
   margin: 0 auto;
   max-width: calc(100% - 400px);
 }
+@media screen and (max-width: 320px){
+  .footer{
+    max-width: calc(100% - 38px);
+  }
+}

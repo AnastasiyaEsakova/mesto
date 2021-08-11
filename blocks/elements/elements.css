@@ -6,3 +6,10 @@
   grid-template-rows: repeat(2, 1fr);
   gap: 20px 17px;
 }
+@media screen and (max-width: 320px){
+  .elements{
+    max-width: calc(100% - 38px);
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}

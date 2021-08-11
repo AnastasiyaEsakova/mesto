@@ -4,3 +4,9 @@
   margin-top: 41px;
   margin-bottom: 40px;
 }
+@media screen and (max-width: 320px){
+  .header__line{
+    margin-top: 31.6px;
+    margin-bottom: 42px;
+  }
+}

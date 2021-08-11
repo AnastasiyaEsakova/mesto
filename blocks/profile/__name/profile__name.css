@@ -7,3 +7,11 @@
   margin-right: 18px;
   max-height: 39px;
 }
+@media screen and (max-width: 320px){
+  .profile__name{
+    font-size: 27px;
+    line-height: 33px;
+    max-height: 26px;
+    margin-right: 10px;
+  }
+}

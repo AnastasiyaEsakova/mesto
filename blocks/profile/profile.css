@@ -6,3 +6,10 @@
   align-items: center;
   margin-bottom: 51px;
 }
+@media screen and (max-width: 320px){
+  .profile{
+    max-width: calc(100% - 38px);
+    flex-direction: column;
+    margin-bottom: 36px;
+  }
+}
