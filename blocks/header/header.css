@@ -4,12 +4,12 @@
   padding: 0;
   padding-top: 45px;
 }
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1050px){
   .header{
     max-width: calc(100% - 200px);
   }
 }
-@media screen and (max-width: 768px){
+@media screen and (max-width: 852px){
   .header{
     max-width: calc(100% - 100px);
   }
