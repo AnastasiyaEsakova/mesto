@@ -2,8 +2,8 @@
   margin: 0 auto;
   max-width: calc(100% - 400px);
   display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 282px));
-  grid-template-rows: repeat(2, minmax(300px, 361px));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 282px));
+  grid-template-rows: repeat(auto-fit, minmax(300px, 361px));
   gap: 20px 17px;
 }
 @media screen and (max-width: 1050px){
