@@ -6,7 +6,7 @@
   height: 32px;
   transition: opacity .3s linear;
   margin-left: calc(50vw + 223px);
-  margin-top: 195px;
+  margin-top: calc((100vh - 370px) / 2);
 
 }
 .popup__close-icon:hover{
@@ -17,6 +17,5 @@
     width: 20px;
     height: 20px;
     margin-left: calc(50vw + 121px);
-    margin-top: 87px;
   }
 }

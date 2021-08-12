@@ -8,6 +8,11 @@
   margin: 0 auto;
   padding: 0;
   margin-bottom: 30px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
 }
 .popup__form:last-of-type{
   margin-bottom: 48px;
@@ -15,38 +20,7 @@
 .popup__form:focus{
   outline: none;
 }
-.popup__form::placeholder{
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: #000;
-}
-.popup__form::-webkit-placeholder{
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: #000;
-}
-.popup__form::-moz-placeholder{
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: #000;
-}
-.popup__form::-ms-placeholder{
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: #000;
-}
+
 @media screen and (max-width: 540px){
   .popup__form{
     width: 238px;
