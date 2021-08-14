@@ -8,11 +8,11 @@
   margin: 0 auto;
   padding: 0;
   margin-bottom: 30px;
-
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
+  padding-bottom: 13px;
 }
 .popup__form:last-of-type{
   margin-bottom: 48px;
@@ -20,7 +20,6 @@
 .popup__form:focus{
   outline: none;
 }
-
 @media screen and (max-width: 540px){
   .popup__form{
     width: 238px;

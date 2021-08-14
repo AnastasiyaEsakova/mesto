@@ -11,5 +11,4 @@
 }
 .element__item:active{
   background-image: url(../../../images/like_active.svg);
-  opacity: 1;
 }
