@@ -5,7 +5,7 @@
   align-items: center;
   margin-bottom: 51px;
 }
-@media screen and (max-width: 1050px){
+@media screen and (max-width: 1150px){
   .profile_page_size{
     max-width: calc(100% - 200px);
   }

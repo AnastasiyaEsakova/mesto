@@ -4,15 +4,19 @@
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
-  margin-top: 16px;
-  max-height: 18px;
+  margin-top: 7px;
+  text-overflow: ellipsis;
+  max-width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 @media screen and (max-width: 590px){
   .profile__description{
     font-size: 14px;
     line-height: 17px;
-    margin-top: 14px;
+    margin-top: 7px;
     text-align: center;
     margin-bottom: 33px;
+    max-width: 300px;
   }
 }
