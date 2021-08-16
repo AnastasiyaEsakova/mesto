@@ -14,6 +14,7 @@
   box-sizing: border-box;
   margin: 0 auto;
   padding: 0;
+  margin-bottom: 37px;
   transition: opacity .3s linear;
 }
 .popup__button:hover{
@@ -25,5 +26,6 @@
     height: 46px;
     font-size: 14px;
     line-height: 17px;
+    margin-bottom: 25px;
   }
 }
