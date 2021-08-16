@@ -1,4 +1,12 @@
 .popup__container{
   margin: 0 auto;
-
+  position: fixed;
+  left: calc(50vw - 215px);
+  top: calc(50vh - 165px);
+}
+@media screen and (max-width: 540px){
+  .popup__container{
+    left: calc(50vw - 141px);
+    top: calc(50vh - 161px);
+  }
 }
