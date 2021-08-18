@@ -12,6 +12,7 @@
   border: none;
   margin-bottom: 9px;
   margin-right: 10px;
+  cursor: pointer;
 }
 .profile__edit-button:hover{
   opacity: 0.6;

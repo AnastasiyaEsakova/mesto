@@ -7,12 +7,12 @@
 }
 @media screen and (max-width: 1150px){
   .profile_page_size{
-    max-width: calc(100% - 200px);
+    max-width: calc(100% - 150px);
   }
 }
 @media screen and (max-width: 852px){
   .profile_page_size{
-    max-width: calc(100% - 100px);
+    max-width: calc(100% - 50px);
     flex-direction: column;
   }
 }

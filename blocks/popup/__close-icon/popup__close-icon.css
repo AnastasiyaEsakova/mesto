@@ -7,9 +7,12 @@
   width: 32px;
   height: 32px;
   transition: opacity .3s linear;
+  margin: 0;
   padding: 0;
-  margin-bottom: 8px;
-  margin-left: 438px;
+  position: relative;
+  top: -40px;
+  left: calc(100% + 8px);
+  cursor: pointer;
 }
 .popup__close-icon:hover{
   opacity: 0.6;
@@ -18,7 +21,7 @@
   .popup__close-icon{
     width: 20px;
     height: 20px;
-    margin-bottom: 16px;
-    margin-left: 262px;
+    top: -36px;
+    left: calc(100% - 20px);
   }
 }

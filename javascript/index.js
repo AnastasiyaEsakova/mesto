@@ -10,21 +10,18 @@ let profileJob = document.querySelector('.profile__description');
 
 function popupOpenMode(){
   popup.classList.add('popup_opened');
-  nameInput.textContent = profileName.textContent;
-  jobInput.textContent = profileJob.textContent;
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
   // добавление класса и перенос имени из профиля в форму
 }
 function popupCloseMode(){
   popup.classList.remove('popup_opened');
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  // удаление класса и обнуление формы
 }
 function formSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  popup.classList.remove('popup_opened');
+  popupCloseMode();
   // изменение данных профиля
 }
 

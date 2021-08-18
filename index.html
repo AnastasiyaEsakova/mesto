@@ -18,64 +18,64 @@
             <div class="profile__info">
               <div class="profile__fullname">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button class="profile__edit-button" type="button"></button>
+                <button class="profile__edit-button" type="button" aria-label="кнопка изменения профиля"></button>
               </div>
               <p class="profile__description">Исследователь океана</p>
             </div>
           </div>
-          <button class="profile__button" type="button"></button>
+          <button class="profile__button" type="button" aria-label="добавить фото"></button>
         </section>
         <section class="elements elements_page_size">
           <article class="element">
             <img class="element__image" src="./images/petra.jpg" alt="Петра">
             <div class="element__container">
               <h2 class="element__title">Петра</h2>
-              <button class="element__item" type="button"></button>
+              <button class="element__item" type="button" aria-label="лайк"></button>
             </div>
           </article>
           <article class="element">
             <img class="element__image" src="./images/elbrus.jpg" alt="Эльбрус">
             <div class="element__container">
               <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__item" type="button"></button>
+              <button class="element__item" type="button" aria-label="лайк"></button>
             </div>
           </article>
           <article class="element">
             <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
             <div class="element__container">
               <h2 class="element__title">Домбай</h2>
-              <button class="element__item" type="button"></button>
+              <button class="element__item" type="button" aria-label="лайк"></button>
             </div>
           </article>
           <article class="element">
             <img class="element__image" src="./images/kareliya.jpg" alt="Карелия">
             <div class="element__container">
             <h2 class="element__title">Карелия</h2>
-            <button class="element__item" type="button"></button>
+            <button class="element__item" type="button" aria-label="лайк"></button>
             </div>
           </article>
           <article class="element">
             <img class="element__image" src="./images/santorini.jpg" alt="Санторини">
             <div class="element__container">
               <h2 class="element__title">Санторини</h2>
-              <button class="element__item" type="button"></button>
+              <button class="element__item" type="button" aria-label="лайк"></button>
             </div>
           </article>
           <article class="element">
             <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
             <div class="element__container">
               <h2 class="element__title">Карачаево-Черкессия</h2>
-              <button class="element__item" type="button"></button>
+              <button class="element__item" type="button" aria-label="лайк"></button>
             </div>
           </article>
         </section>
         <div class="popup">
           <div class="popup__container">
-            <button class="popup__close-icon" type="reset"></button>
-            <form class="popup__form" name="form">
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму"></button>
+            <form class="popup__form" name="editProfileForm">
               <h2 class="popup__title">Редактировать профиль</h2>
-              <input class="popup__input popup__input_el_name" type="text" value="Жак-Ив Кусто" name="name">
-              <input class=" popup__input popup__input_el_job" type="text" value="Исследователь океана" name="job">
+              <input class="popup__input popup__input_el_name" type="text" value="Жак-Ив Кусто" name="inputName">
+              <input class=" popup__input popup__input_el_job" type="text" value="Исследователь океана" name="inputJob">
               <button class="popup__button" type="submit">Сохранить</button>
             </form>
           </div>

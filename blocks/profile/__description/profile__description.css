@@ -10,13 +10,13 @@
   overflow: hidden;
   white-space: nowrap;
 }
-@media screen and (max-width: 590px){
+@media screen and (max-width: 595px){
   .profile__description{
     font-size: 14px;
     line-height: 17px;
     margin-top: 7px;
     text-align: center;
     margin-bottom: 33px;
-    max-width: 300px;
+    max-width: 250px;
   }
 }

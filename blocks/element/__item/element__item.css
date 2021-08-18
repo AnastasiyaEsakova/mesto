@@ -8,6 +8,7 @@
   transition: opacity .3s linear;
   border: none;
   padding: 0;
+  cursor: pointer;
 }
 .element__item:hover{
   opacity: 0.5;
