@@ -37,6 +37,7 @@ let profileJob = document.querySelector('.profile__description');
   }
 ];
 
+
   function getCards(indexNumber){
     const elements = document.querySelector('.elements');
     const cards = document.querySelector('#cards').content;
@@ -49,10 +50,23 @@ let profileJob = document.querySelector('.profile__description');
         let deletePhoto = evt.target.closest('.element');
         deletePhoto.remove();
      });
+
     cardCopy.querySelector('.element__title').textContent = initialCards[indexNumber].name;
     cardCopy.querySelector('.element__image').src = initialCards[indexNumber].link;
     cardCopy.querySelector('.element__image').alt = initialCards[indexNumber].name;
 
+    cardCopy.querySelector('.element__image').addEventListener('click', function(evt){
+          popupOpenMode();
+          popup.style.backgroundColor = 'rgba(0,0,0, .9)';
+          document.querySelector('.popup__container').style.borderRadius = '0';
+          document.querySelector('.popup__container').style.backgroundColor = 'transparent';
+          openImageForm.classList.add('popup-image__container_opened');
+          editProfileForm.classList.remove('popup__form_active');
+          addPhotoForm.classList.remove('popup__form_active');
+          document.querySelector('.popup__image').src = evt.target.src;
+          document.querySelector('.popup__caption').textContent = evt.target.alt;
+          // Открытие pop-up с картинкой
+        })
     elements.prepend(cardCopy);
   }
 
@@ -61,13 +75,14 @@ let profileJob = document.querySelector('.profile__description');
   });
 
 
-
+const openImageForm = document.querySelector('.popup__image-container');
 const addPhotoForm = document.querySelector('#addPhotoForm');
 const editProfileForm = document.querySelector('#editProfileForm');
 const addPhotoButton = document.querySelector('.profile__button');
 function popupAddPhoto(){
   popupOpenMode();
   editProfileForm.classList.remove('popup__form_active');
+  openImageForm.classList.remove('popup-image__container_opened');
   addPhotoForm.classList.add('popup__form_active');
   placeName.value = '';
   placeLink.value = '';
@@ -93,6 +108,7 @@ function formSubmitPhoto (evt) {
 function popupEditProfile (){
   popupOpenMode();
   addPhotoForm.classList.remove('popup__form_active');
+  openImageForm.classList.remove('popup-image__container_opened');
   editProfileForm.classList.add('popup__form_active');
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
@@ -103,6 +119,10 @@ function popupOpenMode(){
 }
 function popupCloseMode(){
   popup.classList.remove('popup_opened');
+  // обнуление стилей
+  popup.style.backgroundColor = "";
+  document.querySelector('.popup__container').style.borderRadius = "";
+  document.querySelector('.popup__container').style.backgroundColor = "";
 }
 
 function formSubmitHandler (evt) {

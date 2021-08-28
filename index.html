@@ -25,71 +25,9 @@
           </div>
           <button class="profile__button" type="button" aria-label="добавить фото"></button>
         </section>
-
-          <section class="elements elements_page_size">
-<!-- <template id="cards">
-            <article class="element">
-              <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
-              <img class="element__image" src="./images/petra.jpg" alt="Петра">
-              <div class="element__container">
-                <h2 class="element__title">Петра</h2>
-                <button class="element__item" type="button" aria-label="лайк"></button>
-              </div>
-            </article>
- </template>
- <template id="cards">
-            <article class="element">
-              <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
-              <img class="element__image" src="./images/elbrus.jpg" alt="Эльбрус">
-              <div class="element__container">
-                <h2 class="element__title">Гора Эльбрус</h2>
-                <button class="element__item" type="button" aria-label="лайк"></button>
-              </div>
-            </article>
- </template>
-  <template id="cards">
-            <article class="element">
-              <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
-              <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
-              <div class="element__container">
-                <h2 class="element__title">Домбай</h2>
-                <button class="element__item" type="button" aria-label="лайк"></button>
-              </div>
-            </article>
-  </template>
-   <template id="cards">
-            <article class="element">
-              <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
-              <img class="element__image" src="./images/kareliya.jpg" alt="Карелия">
-              <div class="element__container">
-              <h2 class="element__title">Карелия</h2>
-              <button class="element__item" type="button" aria-label="лайк"></button>
-              </div>
-            </article>
- </template>
- <template id="cards">
-            <article class="element">
-              <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
-              <img class="element__image" src="./images/santorini.jpg" alt="Санторини">
-              <div class="element__container">
-                <h2 class="element__title">Санторини</h2>
-                <button class="element__item" type="button" aria-label="лайк"></button>
-              </div>
-            </article>
-  </template>
-<template id="cards">
-            <article class="element">
-              <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
-              <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-              <div class="element__container">
-                <h2 class="element__title">Карачаево-Черкессия</h2>
-                <button class="element__item" type="button" aria-label="лайк"></button>
-              </div>
-            </article>
-</template> -->
-          </section>
-
-
+        <section class="elements elements_page_size">
+          <!-- карточки с фотографиями -->
+        </section>
         <div class="popup">
           <div class="popup__container">
             <button class="popup__close-icon" type="button" aria-label="закрыть форму"></button>
@@ -105,31 +43,27 @@
               <input class=" popup__input popup__input_el_link" type="text" placeholder="Ссылка на картинку" name="inputPhotoLink">
               <button class="popup__button" type="submit" id="add-photo-button">Создать</button>
             </form>
+            <figure class="popup__image-container" id='openFullImage'>
+              <img src="" alt="" class="popup__image">
+              <figcaption class="popup__caption"></figcaption>
+            </figure>
           </div>
-
-          <figure class="popup__image-container" id='openFullImage'>
-            <img src="" alt="" class="popup__image">
-            <figcaption class="popup__caption"></figcaption>
-          </figure>
-
         </div>
       </main>
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-
     <template id="cards">
       <article class="element">
         <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
-        <img class="element__image" src="" alt="">
+        <img class="element__image" src="" alt="картинка">
         <div class="element__container">
           <h2 class="element__title"></h2>
           <button class="element__item" type="button" aria-label="лайк"></button>
         </div>
       </article>
     </template>
-
     <script src="./javascript/index.js"></script>
   </body>
 </html>

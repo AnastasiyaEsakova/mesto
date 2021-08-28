@@ -1,8 +1,0 @@
-.popup__image-container_active{
-  display: flex;
-  background-color: transparent;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-}
