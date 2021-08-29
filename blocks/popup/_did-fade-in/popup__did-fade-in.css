@@ -1,6 +1,6 @@
-.popup_opened{
+.popup_did-fade-in{
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fade-in .3s linear;
+  animation: fade-out .3s linear;
 }
