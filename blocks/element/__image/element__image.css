@@ -5,4 +5,5 @@
   object-fit: cover;
   z-index: 0;
   cursor: pointer;
+  background-color: rgb(66, 61, 61);
 }

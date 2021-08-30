@@ -1,6 +1,0 @@
-.popup_did-fade-in{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: fade-out .3s linear;
-}
