@@ -28,23 +28,33 @@
         <section class="elements elements_page_size">
           <!-- карточки с фотографиями -->
         </section>
-        <div class="popup">
+        <div class="popup" id="popupProfile">
           <div class="popup__container">
-            <button class="popup__close-icon" type="button" aria-label="закрыть форму"></button>
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="closePopupProfile"></button>
             <form class="popup__form" name="editProfileForm" id="editProfileForm">
               <h2 class="popup__title">Редактировать профиль</h2>
-              <input class="popup__input popup__input_el_name" type="text" value="Жак-Ив Кусто" name="inputName">
+              <input class="popup__input popup__input_el_name" type="text" value="Жак-Ив Кусто" name="inputName" required>
               <input class=" popup__input popup__input_el_job" type="text" value="Исследователь океана" name="inputJob">
               <button class="popup__button" type="submit">Сохранить</button>
             </form>
+          </div>
+        </div>
+        <div class="popup" id="popupPlace">
+          <div class="popup__container">
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="closePopupPlace"></button>
             <form class="popup__form" name="addPhotoForm" id="addPhotoForm">
               <h2 class="popup__title">Новое место</h2>
-              <input class="popup__input popup__input_el_place-name" type="text" placeholder="Название" name="inputPhotoName">
-              <input class=" popup__input popup__input_el_link" type="text" placeholder="Ссылка на картинку" name="inputPhotoLink">
+              <input class="popup__input popup__input_el_place-name" type="text" placeholder="Название" name="inputPhotoName" required>
+              <input class=" popup__input popup__input_el_link" type="text" placeholder="Ссылка на картинку" name="inputPhotoLink" required>
               <button class="popup__button" type="submit" id="add-photo-button">Создать</button>
             </form>
+          </div>
+        </div>
+        <div class="popup popup_type_image" id='popupImage'>
+          <div class="popup__container popup__container_type_image">
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="closePopupImage"></button>
             <figure class="popup__image-container" id='openFullImage'>
-              <img src="#" alt="" class="popup__image">
+              <img src="#" alt="Картинка" class="popup__image">
               <figcaption class="popup__caption"></figcaption>
             </figure>
           </div>
@@ -54,13 +64,13 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-    <template id="cards">
+    <template id="card">
       <article class="element">
         <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
         <img class="element__image" src="#" alt="картинка">
         <div class="element__container">
           <h2 class="element__title"></h2>
-          <button class="element__item" type="button" aria-label="лайк"></button>
+          <button class="element__like" type="button" aria-label="лайк"></button>
         </div>
       </article>
     </template>
