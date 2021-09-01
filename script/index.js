@@ -50,7 +50,7 @@ const initialCards = [
   }
 ];
 
-function addCard (item) {
+function getCard (item) {
   const cardCopy = card.querySelector('.element').cloneNode(true);
   const cardImage = cardCopy.querySelector('.element__image');
   cardImage.src = item.link;
@@ -72,11 +72,14 @@ function addCard (item) {
     caption.textContent = evt.target.alt;
      // pop-up с картинкой
   });
-  elementsContainer.prepend(cardCopy);
+  return cardCopy;
  }
 
+ function renderCard(item){
+  elementsContainer.prepend(getCard(item));
+ }
 initialCards.forEach( function (card){
-    addCard(card);
+    renderCard(card);
   });
 
 function openAddCardPopup(){
@@ -91,7 +94,7 @@ function formSubmitPhotoHandler(evt) {
     name: `${inputPlaceName.value}`,
     link: `${inputPlaceLink.value}`
   };
-  addCard(newCard);
+  renderCard(newCard);
   closePopup(popupPlace);
 // форма сохранения карточки и добавления на страницу
 }
