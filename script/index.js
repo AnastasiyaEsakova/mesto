@@ -20,8 +20,8 @@ const submitPhoto = document.querySelector('#add-photo-button');
 const closeButtonProfile = document.querySelector('#button_close_profile');
 const closeButtonPlace = document.querySelector('#button_close_place');
 const closeButtonImage = document.querySelector('#button_close_image');
-const image = document.querySelector('.popup__image');
-const caption = document.querySelector('.popup__caption');
+const imagePopup = document.querySelector('.popup__image');
+const captionPopup = document.querySelector('.popup__caption');
 const card = document.querySelector('#card').content;
 const initialCards = [
   {
@@ -56,31 +56,32 @@ function getCard (item) {
   cardImage.src = item.link;
   cardImage.alt = item.name;
   cardCopy.querySelector('.element__title').textContent = item.name;
-  cardCopy.querySelector('.element__like').addEventListener('click', function(evt){
+  cardCopy.querySelector('.element__like').addEventListener('click', (evt) => {
     evt.target.classList.toggle('element__like_active');
     // добавление лайка
   });
-  cardCopy.querySelector('.element__delete-button').addEventListener('click', function(evt){
+  cardCopy.querySelector('.element__delete-button').addEventListener('click', (evt) =>{
     const deletePhoto = evt.target.closest('.element');
     deletePhoto.remove();
     // удаление карточки
   });
   cardImage.addEventListener('click', function(evt){
     openPopup(popupImage);
-    image.src = evt.target.src;
-    image.alt = evt.target.alt;
-    caption.textContent = evt.target.alt;
+    imagePopup.src = evt.target.src;
+    imagePopup.alt = evt.target.alt;
+    captionPopup.textContent = evt.target.alt;
      // pop-up с картинкой
   });
   return cardCopy;
  }
 
- function renderCard(item){
+function renderCard(item){
   elementsContainer.prepend(getCard(item));
- }
+}
+
 initialCards.forEach( function (card){
-    renderCard(card);
-  });
+  renderCard(card);
+});
 
 function openAddCardPopup(){
   openPopup(popupPlace);
@@ -88,7 +89,7 @@ function openAddCardPopup(){
   // форма добавления фотографий
 }
 
-function formSubmitPhotoHandler(evt) {
+function cardFormSubmitHandler(evt) {
   evt.preventDefault();
   const newCard = {
     name: `${inputPlaceName.value}`,
@@ -105,7 +106,7 @@ function openEditProfilePopup (){
   jobInput.value = profileJob.textContent;
   // добавление класса и перенос имени из профиля в форму
 }
-function formSubmitProfileHandler(evt) {
+function profileFormSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -126,5 +127,5 @@ closeButtonImage.addEventListener('click', function(){closePopup(popupImage)});
 
 editButton.addEventListener('click', openEditProfilePopup);
 addPhotoButton.addEventListener('click', openAddCardPopup);
-addPhotoForm.addEventListener('submit', formSubmitPhotoHandler);
-editProfileForm.addEventListener('submit', formSubmitProfileHandler);
+addPhotoForm.addEventListener('submit', cardFormSubmitHandler);
+editProfileForm.addEventListener('submit', profileFormSubmitHandler);
