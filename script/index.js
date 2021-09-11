@@ -20,8 +20,8 @@ const submitPhoto = document.querySelector('#add-photo-button');
 const closeButtonProfile = document.querySelector('#button_close_profile');
 const closeButtonPlace = document.querySelector('#button_close_place');
 const closeButtonImage = document.querySelector('#button_close_image');
-const imagePopup = document.querySelector('.popup__image');
-const captionPopup = document.querySelector('.popup__caption');
+const popupImageImage = document.querySelector('.popup__image');
+const popupImageCaption = document.querySelector('.popup__caption');
 const card = document.querySelector('#card').content;
 const initialCards = [
   {
@@ -67,9 +67,9 @@ function getCard (item) {
   });
   cardImage.addEventListener('click', function(evt){
     openPopup(popupImage);
-    imagePopup.src = evt.target.src;
-    imagePopup.alt = evt.target.alt;
-    captionPopup.textContent = evt.target.alt;
+    popupImageImage.src = evt.target.src;
+    popupImageImage.alt = evt.target.alt;
+    popupImageCaption.textContent = evt.target.alt;
      // pop-up с картинкой
   });
   return cardCopy;
@@ -86,11 +86,16 @@ initialCards.forEach( function (card){
 function openAddCardPopup(){
   openPopup(popupPlace);
   addPhotoForm.reset();
+  checkInputValidity(addPhotoForm, inputPlaceName, validationConfig.inputErrorClass, validationConfig.errorClass);
+  checkInputValidity(addPhotoForm, inputPlaceLink, validationConfig.inputErrorClass, validationConfig.errorClass);
+  if(inputPlaceName.validity.valid && inputPlaceLink.validity.valid){
+    addPhotoForm.querySelector('.popup__button').classList.remove(validationConfig.inactiveButtonClass);
+  }
+  addPhotoForm.reset();
   // форма добавления фотографий
 }
 
-function cardFormSubmitHandler(evt) {
-  evt.preventDefault();
+function cardFormSubmitHandler() {
   const newCard = {
     name: `${inputPlaceName.value}`,
     link: `${inputPlaceLink.value}`
@@ -104,10 +109,14 @@ function openEditProfilePopup (){
   openPopup(popupProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  checkInputValidity(editProfileForm, nameInput, validationConfig.inputErrorClass, validationConfig.errorClass);
+  checkInputValidity(editProfileForm, jobInput, validationConfig.inputErrorClass, validationConfig.errorClass);
+  if(nameInput.validity.valid && jobInput.validity.valid){
+    editProfileForm.querySelector('.popup__button').classList.remove(validationConfig.inactiveButtonClass);
+  }
   // добавление класса и перенос имени из профиля в форму
 }
-function profileFormSubmitHandler(evt) {
-  evt.preventDefault();
+function profileFormSubmitHandler() {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupProfile);
@@ -121,11 +130,53 @@ function closePopup (popup){
   popup.classList.remove('popup_opened');
 }
 
-closeButtonProfile.addEventListener('click', function(){closePopup(popupProfile)});
-closeButtonPlace.addEventListener('click',  function(){closePopup(popupPlace)});
-closeButtonImage.addEventListener('click', function(){closePopup(popupImage)});
+window.addEventListener('click', function(evt){
+  if(!evt.target.classList.contains('popup') && !evt.target.classList.contains('popup__close-icon')){
+    evt.stopPropagation();
+  } else {closePopup(popupImage);
+          closePopup(popupProfile);
+          closePopup(popupPlace)}
+    // закрывает pop-up кликом по фону и крестику
+});
+window.addEventListener('keydown', function(evt){
+  if (evt.key === 'Escape'){
+    closePopup(popupProfile);
+    closePopup(popupPlace);
+    closePopup(popupImage)
+  }
+  // закрывет pop-up клавишей ESC
+});
 
-editButton.addEventListener('click', openEditProfilePopup);
-addPhotoButton.addEventListener('click', openAddCardPopup);
+// const resetErrorClass = (formElement) => {
+//   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+//   const errorlist = Array.from(formElement.querySelectorAll('.popup__error'));
+//   inputList.forEach((inputElement) => {
+//     inputElement.classList.remove('popup__input_type_error');
+//   });
+//   errorlist.forEach((errorElement) => {
+//     errorElement.classList.remove('popup__error_visible');
+//   });
+// };
+
+
+editButton.addEventListener('click', () => {
+  openEditProfilePopup();
+} );
+addPhotoButton.addEventListener('click', () => {
+  openAddCardPopup();
+});
 addPhotoForm.addEventListener('submit', cardFormSubmitHandler);
 editProfileForm.addEventListener('submit', profileFormSubmitHandler);
+
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+};
+
+enableValidation(validationConfig);
+
+
