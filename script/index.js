@@ -86,12 +86,6 @@ initialCards.forEach( function (card){
 function openAddCardPopup(){
   openPopup(popupPlace);
   addPhotoForm.reset();
-  checkInputValidity(addPhotoForm, inputPlaceName, validationConfig.inputErrorClass, validationConfig.errorClass);
-  checkInputValidity(addPhotoForm, inputPlaceLink, validationConfig.inputErrorClass, validationConfig.errorClass);
-  if(inputPlaceName.validity.valid && inputPlaceLink.validity.valid){
-    addPhotoForm.querySelector('.popup__button').classList.remove(validationConfig.inactiveButtonClass);
-  }
-  addPhotoForm.reset();
   // форма добавления фотографий
 }
 
@@ -104,16 +98,20 @@ function cardFormSubmitHandler() {
   closePopup(popupPlace);
 // форма сохранения карточки и добавления на страницу
 }
+const checkFormValidity = (form, elementInputFirst, elementInputSecond ) => {
+  checkInputValidity(form, elementInputFirst, validationConfig.inputErrorClass, validationConfig.errorClass);
+  checkInputValidity(form, elementInputSecond, validationConfig.inputErrorClass, validationConfig.errorClass);
+  if(elementInputFirst.validity.valid && elementInputSecond.validity.valid){
+    form.querySelector('.popup__button').classList.remove(validationConfig.inactiveButtonClass);
+  }
+  // проверка формы перед открытием
+};
 
 function openEditProfilePopup (){
   openPopup(popupProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  checkInputValidity(editProfileForm, nameInput, validationConfig.inputErrorClass, validationConfig.errorClass);
-  checkInputValidity(editProfileForm, jobInput, validationConfig.inputErrorClass, validationConfig.errorClass);
-  if(nameInput.validity.valid && jobInput.validity.valid){
-    editProfileForm.querySelector('.popup__button').classList.remove(validationConfig.inactiveButtonClass);
-  }
+  checkFormValidity(editProfileForm, nameInput, jobInput);
   // добавление класса и перенос имени из профиля в форму
 }
 function profileFormSubmitHandler() {
