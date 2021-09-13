@@ -25,28 +25,22 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const hasNotInputValues = (inputList) => {
-  return inputList.every((inputElement) => {
-    return inputElement.value.length === 0;
-  });
 
-};
-
-const disabledSubmitButton = (buttonElement, inactiveButtonClass) => {
+const disableSubmitButton = (buttonElement, inactiveButtonClass) => {
   buttonElement.classList.add(inactiveButtonClass);
 };
 
-const enabledSubmitButton = (buttonElement, inactiveButtonClass) => {
+const enableSubmitButton = (buttonElement, inactiveButtonClass) => {
   buttonElement.classList.remove(inactiveButtonClass);
 };
 
 const toggleButtonState = (formElement, inputList, submitButtonSelector, inactiveButtonClass) => {
   const buttonElement = formElement.querySelector(submitButtonSelector);
 
-  if (hasInvalidInput(inputList) || hasNotInputValues(inputList)) {
-    disabledSubmitButton(buttonElement, inactiveButtonClass);
+  if (hasInvalidInput(inputList)) {
+    disableSubmitButton(buttonElement, inactiveButtonClass);
   } else {
-    enabledSubmitButton(buttonElement, inactiveButtonClass);
+    enableSubmitButton(buttonElement, inactiveButtonClass);
   }
 };
 
@@ -60,9 +54,17 @@ const setEventListeners = (formElement, inputSelector, submitButtonSelector, inp
       checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
       toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
     });
-    if (hasNotInputValues(inputList)){
+    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+    editButton.addEventListener('click', () => {
+      openEditProfilePopup();
+      hideInputError( inputElement, errorElement, inputErrorClass, errorClass);
       toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
-    }
+    });
+    addPhotoButton.addEventListener('click', () => {
+      openAddCardPopup();
+      hideInputError( inputElement, errorElement, inputErrorClass, errorClass);
+      toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
+    });
   });
 };
 

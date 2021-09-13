@@ -1,4 +1,5 @@
 const elementsContainer = document.querySelector('.elements');
+const popupList = Array.from(document.querySelectorAll('.popup'));
 
 const popupProfile = document.querySelector('#popup_type_profile');
 const editProfileForm = document.querySelector('#edit_profile_form');
@@ -98,20 +99,20 @@ function cardFormSubmitHandler() {
   closePopup(popupPlace);
 // форма сохранения карточки и добавления на страницу
 }
-const checkFormValidity = (form, elementInputFirst, elementInputSecond ) => {
-  checkInputValidity(form, elementInputFirst, validationConfig.inputErrorClass, validationConfig.errorClass);
-  checkInputValidity(form, elementInputSecond, validationConfig.inputErrorClass, validationConfig.errorClass);
-  if(elementInputFirst.validity.valid && elementInputSecond.validity.valid){
-    form.querySelector('.popup__button').classList.remove(validationConfig.inactiveButtonClass);
-  }
-  // проверка формы перед открытием
-};
+// const checkFormValidity = (form, elementInputFirst, elementInputSecond ) => {
+//   checkInputValidity(form, elementInputFirst, validationConfig.inputErrorClass, validationConfig.errorClass);
+//   checkInputValidity(form, elementInputSecond, validationConfig.inputErrorClass, validationConfig.errorClass);
+//   if(elementInputFirst.validity.valid && elementInputSecond.validity.valid){
+//     form.querySelector('.popup__button').classList.remove(validationConfig.inactiveButtonClass);
+//   }
+//   // проверка формы перед открытием
+// };
 
 function openEditProfilePopup (){
   openPopup(popupProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  checkFormValidity(editProfileForm, nameInput, jobInput);
+  //checkFormValidity(editProfileForm, nameInput, jobInput);
   // добавление класса и перенос имени из профиля в форму
 }
 function profileFormSubmitHandler() {
@@ -121,48 +122,39 @@ function profileFormSubmitHandler() {
   // Сохранение имени и описания, перенос на страницу
 }
 
+const closeWithEsc = (evt) => {
+  if (evt.key === 'Escape'){
+    const popup = popupList.find((popupElement) => {
+      return popupElement.classList.contains('popup_opened');
+    })
+    closePopup(popup);
+}};
+
 function openPopup (popup){
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeWithEsc);
 }
 function closePopup (popup){
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeWithEsc);
 }
 
-window.addEventListener('click', function(evt){
-  if(!evt.target.classList.contains('popup') && !evt.target.classList.contains('popup__close-icon')){
-    evt.stopPropagation();
-  } else {closePopup(popupImage);
-          closePopup(popupProfile);
-          closePopup(popupPlace)}
-    // закрывает pop-up кликом по фону и крестику
-});
-window.addEventListener('keydown', function(evt){
-  if (evt.key === 'Escape'){
-    closePopup(popupProfile);
-    closePopup(popupPlace);
-    closePopup(popupImage)
-  }
-  // закрывет pop-up клавишей ESC
+popupList.forEach((popup) => {
+  popup.addEventListener('click', function(evt){
+    if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-icon')){
+      const popupElement = evt.target.closest('.popup');
+      closePopup(popupElement);
+    }
+      // закрывает pop-up кликом по фону и крестику
+  });
 });
 
-// const resetErrorClass = (formElement) => {
-//   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-//   const errorlist = Array.from(formElement.querySelectorAll('.popup__error'));
-//   inputList.forEach((inputElement) => {
-//     inputElement.classList.remove('popup__input_type_error');
-//   });
-//   errorlist.forEach((errorElement) => {
-//     errorElement.classList.remove('popup__error_visible');
-//   });
-// };
-
-
-editButton.addEventListener('click', () => {
-  openEditProfilePopup();
-} );
-addPhotoButton.addEventListener('click', () => {
-  openAddCardPopup();
-});
+// editButton.addEventListener('click', () => {
+//   openEditProfilePopup();
+// } );
+// addPhotoButton.addEventListener('click', () => {
+//   openAddCardPopup();
+// });
 addPhotoForm.addEventListener('submit', cardFormSubmitHandler);
 editProfileForm.addEventListener('submit', profileFormSubmitHandler);
 
@@ -176,5 +168,3 @@ const validationConfig = {
 };
 
 enableValidation(validationConfig);
-
-
