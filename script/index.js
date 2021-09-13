@@ -99,20 +99,11 @@ function cardFormSubmitHandler() {
   closePopup(popupPlace);
 // форма сохранения карточки и добавления на страницу
 }
-// const checkFormValidity = (form, elementInputFirst, elementInputSecond ) => {
-//   checkInputValidity(form, elementInputFirst, validationConfig.inputErrorClass, validationConfig.errorClass);
-//   checkInputValidity(form, elementInputSecond, validationConfig.inputErrorClass, validationConfig.errorClass);
-//   if(elementInputFirst.validity.valid && elementInputSecond.validity.valid){
-//     form.querySelector('.popup__button').classList.remove(validationConfig.inactiveButtonClass);
-//   }
-//   // проверка формы перед открытием
-// };
 
 function openEditProfilePopup (){
   openPopup(popupProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  //checkFormValidity(editProfileForm, nameInput, jobInput);
   // добавление класса и перенос имени из профиля в форму
 }
 function profileFormSubmitHandler() {
@@ -128,6 +119,7 @@ const closeWithEsc = (evt) => {
       return popupElement.classList.contains('popup_opened');
     })
     closePopup(popup);
+  // закрывает pop-up клавишей ESC
 }};
 
 function openPopup (popup){
@@ -149,12 +141,6 @@ popupList.forEach((popup) => {
   });
 });
 
-// editButton.addEventListener('click', () => {
-//   openEditProfilePopup();
-// } );
-// addPhotoButton.addEventListener('click', () => {
-//   openAddCardPopup();
-// });
 addPhotoForm.addEventListener('submit', cardFormSubmitHandler);
 editProfileForm.addEventListener('submit', profileFormSubmitHandler);
 
