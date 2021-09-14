@@ -115,11 +115,9 @@ function profileFormSubmitHandler() {
 
 const closeWithEsc = (evt) => {
   if (evt.key === 'Escape'){
-    const popup = popupList.find((popupElement) => {
-      return popupElement.classList.contains('popup_opened');
-    })
+    const popup = document.querySelector('.popup_opened');
     closePopup(popup);
-  // закрывает pop-up клавишей ESC
+      // закрывает pop-up клавишей ESC
 }};
 
 function openPopup (popup){
@@ -140,7 +138,14 @@ popupList.forEach((popup) => {
       // закрывает pop-up кликом по фону и крестику
   });
 });
-
+editButton.addEventListener('click', () => {
+  openEditProfilePopup();
+  resetValidation(validationConfig, editProfileForm);
+});
+addPhotoButton.addEventListener('click', () => {
+  openAddCardPopup();
+  resetValidation(validationConfig, addPhotoForm);
+});
 addPhotoForm.addEventListener('submit', cardFormSubmitHandler);
 editProfileForm.addEventListener('submit', profileFormSubmitHandler);
 

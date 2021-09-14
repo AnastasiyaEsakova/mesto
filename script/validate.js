@@ -54,17 +54,7 @@ const setEventListeners = (formElement, inputSelector, submitButtonSelector, inp
       checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
       toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
     });
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    editButton.addEventListener('click', () => {
-      openEditProfilePopup();
-      hideInputError( inputElement, errorElement, inputErrorClass, errorClass);
-      toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
-    });
-    addPhotoButton.addEventListener('click', () => {
-      openAddCardPopup();
-      hideInputError( inputElement, errorElement, inputErrorClass, errorClass);
-      toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
-    });
+    toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
   });
 };
 
@@ -75,5 +65,12 @@ const enableValidation = (config) => {
   });
 };
 
-
+const resetValidation = (config, formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  inputList.forEach((inputElement) => {
+    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+    hideInputError(inputElement, errorElement, config.inputErrorClass, config.errorClass);
+  });
+  toggleButtonState(formElement, inputList, config.submitButtonSelector, config.inactiveButtonClass);
+};
 
