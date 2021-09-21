@@ -51,37 +51,42 @@ const initialCards = [
   }
 ];
 
-function getCard (item) {
-  const cardCopy = card.querySelector('.element').cloneNode(true);
-  const cardImage = cardCopy.querySelector('.element__image');
-  cardImage.src = item.link;
-  cardImage.alt = item.name;
-  cardCopy.querySelector('.element__title').textContent = item.name;
-  cardCopy.querySelector('.element__like').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('element__like_active');
-    // добавление лайка
-  });
-  cardCopy.querySelector('.element__delete-button').addEventListener('click', (evt) =>{
-    const deletePhoto = evt.target.closest('.element');
-    deletePhoto.remove();
-    // удаление карточки
-  });
-  cardImage.addEventListener('click', function(evt){
-    openPopup(popupImage);
-    popupImageImage.src = evt.target.src;
-    popupImageImage.alt = evt.target.alt;
-    popupImageCaption.textContent = evt.target.alt;
-     // pop-up с картинкой
-  });
-  return cardCopy;
- }
+// function getCard (item) {
+//   const cardCopy = card.querySelector('.element').cloneNode(true);
+//   const cardImage = cardCopy.querySelector('.element__image');
+//   cardImage.src = item.link;
+//   cardImage.alt = item.name;
+//   cardCopy.querySelector('.element__title').textContent = item.name;
+//   cardCopy.querySelector('.element__like').addEventListener('click', (evt) => {
+//     evt.target.classList.toggle('element__like_active');
+//     // добавление лайка
+//   });
+//   cardCopy.querySelector('.element__delete-button').addEventListener('click', (evt) =>{
+//     const deletePhoto = evt.target.closest('.element');
+//     deletePhoto.remove();
+//     // удаление карточки
+//   });
+//   cardImage.addEventListener('click', function(evt){
+//     openPopup(popupImage);
+//     popupImageImage.src = evt.target.src;
+//     popupImageImage.alt = evt.target.alt;
+//     popupImageCaption.textContent = evt.target.alt;
+//      // pop-up с картинкой
+//   });
+//   return cardCopy;
+//  }
 
-function renderCard(item){
-  elementsContainer.prepend(getCard(item));
+function renderCard(card){
+  elementsContainer.prepend(card);
 }
 
-initialCards.forEach( function (card){
-  renderCard(card);
+
+import Card from './Card.js';
+
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link);
+  const cardElement = card.generateCard();
+  renderCard(cardElement);
 });
 
 function openAddCardPopup(){
@@ -91,10 +96,7 @@ function openAddCardPopup(){
 }
 
 function cardFormSubmitHandler() {
-  const newCard = {
-    name: `${inputPlaceName.value}`,
-    link: `${inputPlaceLink.value}`
-  };
+  const newCard = new Card(inputPlaceName.value, inputPlaceLink.value).generateCard();
   renderCard(newCard);
   closePopup(popupPlace);
 // форма сохранения карточки и добавления на страницу
@@ -120,7 +122,7 @@ const closeWithEsc = (evt) => {
       // закрывает pop-up клавишей ESC
 }};
 
-function openPopup (popup){
+export default function openPopup (popup){
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeWithEsc);
 }
