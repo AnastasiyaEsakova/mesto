@@ -1,3 +1,5 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 const elementsContainer = document.querySelector('.elements');
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
@@ -5,7 +7,6 @@ const popupProfile = document.querySelector('#popup_type_profile');
 const editProfileForm = document.querySelector('#edit_profile_form');
 
 const popupPlace = document.querySelector('#popup_type_place');
-const popupImage = document.querySelector('#popup_type_image');
 const nameInput = editProfileForm.querySelector('.popup__input_el_name');
 const jobInput = editProfileForm.querySelector('.popup__input_el_job');
 const editButton = document.querySelector('.profile__edit-button');
@@ -16,14 +17,7 @@ const addPhotoForm = document.querySelector('#add_photo_form');
 const inputPlaceName = addPhotoForm.querySelector('.popup__input_el_place-name');
 const inputPlaceLink = addPhotoForm.querySelector('.popup__input_el_link');
 const addPhotoButton = document.querySelector('.profile__button');
-const submitPhoto = document.querySelector('#add-photo-button');
 
-const closeButtonProfile = document.querySelector('#button_close_profile');
-const closeButtonPlace = document.querySelector('#button_close_place');
-const closeButtonImage = document.querySelector('#button_close_image');
-const popupImageImage = document.querySelector('.popup__image');
-const popupImageCaption = document.querySelector('.popup__caption');
-const card = document.querySelector('#card').content;
 const initialCards = [
   {
     name: 'Архыз',
@@ -50,44 +44,31 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+};
 
-// function getCard (item) {
-//   const cardCopy = card.querySelector('.element').cloneNode(true);
-//   const cardImage = cardCopy.querySelector('.element__image');
-//   cardImage.src = item.link;
-//   cardImage.alt = item.name;
-//   cardCopy.querySelector('.element__title').textContent = item.name;
-//   cardCopy.querySelector('.element__like').addEventListener('click', (evt) => {
-//     evt.target.classList.toggle('element__like_active');
-//     // добавление лайка
-//   });
-//   cardCopy.querySelector('.element__delete-button').addEventListener('click', (evt) =>{
-//     const deletePhoto = evt.target.closest('.element');
-//     deletePhoto.remove();
-//     // удаление карточки
-//   });
-//   cardImage.addEventListener('click', function(evt){
-//     openPopup(popupImage);
-//     popupImageImage.src = evt.target.src;
-//     popupImageImage.alt = evt.target.alt;
-//     popupImageCaption.textContent = evt.target.alt;
-//      // pop-up с картинкой
-//   });
-//   return cardCopy;
-//  }
-
-function renderCard(card){
-  elementsContainer.prepend(card);
-}
-
-
-import Card from './Card.js';
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+  const formValid = new FormValidator(validationConfig, formElement)
+  const formCheck = formValid.enableValidation();
+  return formCheck;
+});
 
 initialCards.forEach((item) => {
   const card = new Card(item.name, item.link);
   const cardElement = card.generateCard();
   renderCard(cardElement);
 });
+
+function renderCard(card){
+  elementsContainer.prepend(card);
+}
 
 function openAddCardPopup(){
   openPopup(popupPlace);
@@ -140,24 +121,18 @@ popupList.forEach((popup) => {
       // закрывает pop-up кликом по фону и крестику
   });
 });
+
 editButton.addEventListener('click', () => {
   openEditProfilePopup();
-  resetValidation(validationConfig, editProfileForm);
+  const formProfile = new FormValidator(validationConfig, editProfileForm).resetValidation();
+  return formProfile;
 });
 addPhotoButton.addEventListener('click', () => {
   openAddCardPopup();
-  resetValidation(validationConfig, addPhotoForm);
+  const formAddPhoto = new FormValidator(validationConfig, addPhotoForm).resetValidation();
+  return formAddPhoto;
 });
 addPhotoForm.addEventListener('submit', cardFormSubmitHandler);
 editProfileForm.addEventListener('submit', profileFormSubmitHandler);
 
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-};
 
-enableValidation(validationConfig);
