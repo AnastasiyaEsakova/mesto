@@ -1,5 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import {initialCards, validationConfig} from './utils.js'
 const elementsContainer = document.querySelector('.elements');
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
@@ -18,57 +19,31 @@ const inputPlaceName = addPhotoForm.querySelector('.popup__input_el_place-name')
 const inputPlaceLink = addPhotoForm.querySelector('.popup__input_el_link');
 const addPhotoButton = document.querySelector('.profile__button');
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-};
+const popupImageImage = document.querySelector('.popup__image');
+const popupImageCaption = document.querySelector('.popup__caption');
+const popupImage = document.querySelector('#popup_type_image');
 
-const formList = Array.from(document.querySelectorAll('.popup__form'));
-formList.forEach((formElement) => {
-  const formValid = new FormValidator(validationConfig, formElement)
-  const formCheck = formValid.enableValidation();
-  return formCheck;
-});
+const formProfile = new FormValidator(validationConfig, editProfileForm);
+const formProfileValid = formProfile.enableValidation();
+const formAddPhoto = new FormValidator(validationConfig, addPhotoForm);
+const formAddPhotoValid = formAddPhoto.enableValidation();
 
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link);
-  const cardElement = card.generateCard();
-  renderCard(cardElement);
-});
 
+function handleOpenPopupImage(){
+  openPopup(popupImage);
+  popupImageImage.src = this._link;
+  popupImageImage.alt = this._name;
+  popupImageCaption.textContent = this._name;
+}
 function renderCard(card){
   elementsContainer.prepend(card);
 }
+
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link, handleOpenPopupImage);
+  const cardElement = card.generateCard();
+  renderCard(cardElement);
+});
 
 function openAddCardPopup(){
   openPopup(popupPlace);
@@ -103,7 +78,7 @@ const closeWithEsc = (evt) => {
       // закрывает pop-up клавишей ESC
 }};
 
-export default function openPopup (popup){
+function openPopup (popup){
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeWithEsc);
 }
@@ -113,7 +88,7 @@ function closePopup (popup){
 }
 
 popupList.forEach((popup) => {
-  popup.addEventListener('click', function(evt){
+  popup.addEventListener('mousedown', function(evt){
     if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-icon')){
       const popupElement = evt.target.closest('.popup');
       closePopup(popupElement);
@@ -124,11 +99,11 @@ popupList.forEach((popup) => {
 
 editButton.addEventListener('click', () => {
   openEditProfilePopup();
-  const formProfile = new FormValidator(validationConfig, editProfileForm).resetValidation();
+  formProfile.resetValidation();
 });
 addPhotoButton.addEventListener('click', () => {
   openAddCardPopup();
-  const formAddPhoto = new FormValidator(validationConfig, addPhotoForm).resetValidation();
+  formAddPhoto.resetValidation();
 });
 addPhotoForm.addEventListener('submit', cardFormSubmitHandler);
 editProfileForm.addEventListener('submit', profileFormSubmitHandler);

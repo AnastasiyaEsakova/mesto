@@ -1,24 +1,21 @@
-const popupImageImage = document.querySelector('.popup__image');
-const popupImageCaption = document.querySelector('.popup__caption');
-const popupImage = document.querySelector('#popup_type_image');
-import openPopup from './index.js';
-
 export default class Card {
-  constructor (name, link){
+  constructor (name, link, callback){
     this._name = name;
     this._link = link;
+    this._callback = callback;
   }
 
   _getTemplate () {
-    const cardElement = document.querySelector('#card').content.querySelector('.element').cloneNode(true);
-    return cardElement;
+    this._cardElement = document.querySelector('#card').content.querySelector('.element').cloneNode(true);
+    return this._cardElement;
   }
 
   generateCard () {
     this._element = this._getTemplate();
     this._setEventListeners();
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
+    this._elementImage = this._element.querySelector('.element__image');
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
     return this._element;
   }
@@ -31,7 +28,7 @@ export default class Card {
       this._handleRemoveCard();
     });
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._handleOpenPopupImage();
+      this._callback();
     });
   }
 
@@ -40,13 +37,7 @@ export default class Card {
   }
   _handleRemoveCard(){
     this._element.remove();
-  }
-  _handleOpenPopupImage(){
-    openPopup(popupImage);
-    popupImageImage.src = this._link;
-    popupImageImage.alt = this._name;
-    popupImageCaption.textContent = this._name;
+    this._element = '';
   }
 }
-
 
