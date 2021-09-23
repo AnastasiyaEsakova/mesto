@@ -53,8 +53,8 @@ const validationConfig = {
   errorClass: 'popup__error_visible',
 };
 
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  formList.forEach((formElement) => {
+const formList = Array.from(document.querySelectorAll('.popup__form'));
+formList.forEach((formElement) => {
   const formValid = new FormValidator(validationConfig, formElement)
   const formCheck = formValid.enableValidation();
   return formCheck;
@@ -125,12 +125,10 @@ popupList.forEach((popup) => {
 editButton.addEventListener('click', () => {
   openEditProfilePopup();
   const formProfile = new FormValidator(validationConfig, editProfileForm).resetValidation();
-  return formProfile;
 });
 addPhotoButton.addEventListener('click', () => {
   openAddCardPopup();
   const formAddPhoto = new FormValidator(validationConfig, addPhotoForm).resetValidation();
-  return formAddPhoto;
 });
 addPhotoForm.addEventListener('submit', cardFormSubmitHandler);
 editProfileForm.addEventListener('submit', profileFormSubmitHandler);

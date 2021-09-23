@@ -1,3 +1,8 @@
+const popupImageImage = document.querySelector('.popup__image');
+const popupImageCaption = document.querySelector('.popup__caption');
+const popupImage = document.querySelector('#popup_type_image');
+import openPopup from './index.js';
+
 export default class Card {
   constructor (name, link){
     this._name = name;
@@ -42,10 +47,6 @@ export default class Card {
     popupImageImage.alt = this._name;
     popupImageCaption.textContent = this._name;
   }
-
 }
-const popupImageImage = document.querySelector('.popup__image');
-const popupImageCaption = document.querySelector('.popup__caption');
-const popupImage = document.querySelector('#popup_type_image');
-import openPopup from './index.js';
+
 
