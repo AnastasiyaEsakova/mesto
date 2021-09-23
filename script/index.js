@@ -24,12 +24,12 @@ const popupImageCaption = document.querySelector('.popup__caption');
 const popupImage = document.querySelector('#popup_type_image');
 
 const formProfile = new FormValidator(validationConfig, editProfileForm);
-const formProfileValid = formProfile.enableValidation();
+formProfile.enableValidation();
 const formAddPhoto = new FormValidator(validationConfig, addPhotoForm);
-const formAddPhotoValid = formAddPhoto.enableValidation();
+formAddPhoto.enableValidation();
 
 
-function handleOpenPopupImage(){
+function handlerOpenPopupImage(){
   openPopup(popupImage);
   popupImageImage.src = this._link;
   popupImageImage.alt = this._name;
@@ -40,9 +40,8 @@ function renderCard(card){
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, handleOpenPopupImage);
-  const cardElement = card.generateCard();
-  renderCard(cardElement);
+  const card = new Card(item.name, item.link, handlerOpenPopupImage).generateCard();
+  renderCard(card);
 });
 
 function openAddCardPopup(){
@@ -52,7 +51,7 @@ function openAddCardPopup(){
 }
 
 function cardFormSubmitHandler() {
-  const newCard = new Card(inputPlaceName.value, inputPlaceLink.value).generateCard();
+  const newCard = new Card(inputPlaceName.value, inputPlaceLink.value, handlerOpenPopupImage).generateCard();
   renderCard(newCard);
   closePopup(popupPlace);
 // форма сохранения карточки и добавления на страницу

@@ -5,17 +5,17 @@ export default class FormValidator {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
     this._submitButton = this._formElement.querySelector(this._config.submitButtonSelector);
   }
-  enableValidation(){
+  enableValidation () {
     this._setEventListeners();
   }
-  resetValidation(){
+  resetValidation () {
     this._inputList.forEach((inputElement) => {
       const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
         this._hideInputError(errorElement, inputElement);
       });
     this._toggleButtonState();
   }
-  _setEventListeners(){
+  _setEventListeners () {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });

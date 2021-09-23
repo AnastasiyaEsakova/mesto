@@ -1,8 +1,8 @@
 export default class Card {
-  constructor (name, link, callback){
+  constructor (name, link, handlerOpenImage){
     this._name = name;
     this._link = link;
-    this._callback = callback;
+    this._handlerOpenImage = handlerOpenImage;
   }
 
   _getTemplate () {
@@ -28,7 +28,7 @@ export default class Card {
       this._handleRemoveCard();
     });
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._callback();
+      this._handlerOpenImage();
     });
   }
 

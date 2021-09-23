@@ -14,3 +14,8 @@
 .popup__error:last-of-type{
   margin-bottom: 0;
 }
+@media screen and (max-width: 540px){
+  .popup__error{
+    margin-left: 22px;
+  }
+}
