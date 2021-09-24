@@ -1,12 +1,13 @@
 export default class Card {
-  constructor (name, link, handlerOpenImage){
+  constructor (name, link, templateSelector, handleOpenImage){
     this._name = name;
     this._link = link;
-    this._handlerOpenImage = handlerOpenImage;
+    this._handleOpenImage = handleOpenImage;
+    this._templateSelector = templateSelector;
   }
 
   _getTemplate () {
-    this._cardElement = document.querySelector('#card').content.querySelector('.element').cloneNode(true);
+    this._cardElement = document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
     return this._cardElement;
   }
 
@@ -28,7 +29,7 @@ export default class Card {
       this._handleRemoveCard();
     });
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._handlerOpenImage();
+      this._handleOpenImage();
     });
   }
 

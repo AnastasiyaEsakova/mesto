@@ -29,7 +29,7 @@ const formAddPhoto = new FormValidator(validationConfig, addPhotoForm);
 formAddPhoto.enableValidation();
 
 
-function handlerOpenPopupImage(){
+function handleOpenPopupImage(){
   openPopup(popupImage);
   popupImageImage.src = this._link;
   popupImageImage.alt = this._name;
@@ -40,7 +40,7 @@ function renderCard(card){
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, handlerOpenPopupImage).generateCard();
+  const card = new Card(item.name, item.link, '#card', handleOpenPopupImage).generateCard();
   renderCard(card);
 });
 
@@ -51,7 +51,7 @@ function openAddCardPopup(){
 }
 
 function cardFormSubmitHandler() {
-  const newCard = new Card(inputPlaceName.value, inputPlaceLink.value, handlerOpenPopupImage).generateCard();
+  const newCard = new Card(inputPlaceName.value, inputPlaceLink.value, '#card', handleOpenPopupImage).generateCard();
   renderCard(newCard);
   closePopup(popupPlace);
 // форма сохранения карточки и добавления на страницу
