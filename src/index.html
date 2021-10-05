@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+  </head>
+  <body class="body">
+    <div class="page">
+      <header class="header">
+        <div class="header__logo"></div>
+      </header>
+      <main class="content">
+        <section class="profile profile_page_size">
+          <div class="profile__items">
+            <img src="<%=require('./images/avatar.jpg')%>" alt="Фото профиля" class="profile__avatar">
+            <div class="profile__info">
+              <div class="profile__fullname">
+                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <button class="profile__edit-button" type="button" aria-label="кнопка изменения профиля"></button>
+              </div>
+              <p class="profile__description">Исследователь океана</p>
+            </div>
+          </div>
+          <button class="profile__button" type="button" aria-label="добавить фото"></button>
+        </section>
+        <section class="elements elements_page_size">
+
+        </section>
+        <div class="popup" id="popup_type_profile">
+          <div class="popup__container">
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="button_close_profile"></button>
+            <form class="popup__form" name="editProfileForm" id="edit_profile_form">
+              <h2 class="popup__title">Редактировать профиль</h2>
+
+              <input class="popup__input popup__input_el_name" id ="name-profile" name="name" type="text" value="Жак-Ив Кусто"
+               placeholder="Имя" minlength="2" maxlength="40" required >
+              <span class="popup__error" id="name-profile-error"></span>
+
+              <input class=" popup__input popup__input_el_job" id="job-profile" type="text" value="Исследователь океана"
+               placeholder="Описание" name="inputJob" minlength="2" maxlength="200" required>
+              <span class="popup__error" id="job-profile-error"></span>
+
+              <button class="popup__button" type="submit">Сохранить</button>
+            </form>
+          </div>
+        </div>
+        <div class="popup" id="popup_type_place">
+          <div class="popup__container">
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="button_close_place"></button>
+            <form class="popup__form" name="addPhotoForm" id="add_photo_form" >
+              <h2 class="popup__title">Новое место</h2>
+
+              <input class="popup__input popup__input_el_place-name" id="place-name" type="text"
+              placeholder="Название" name="inputPhotoName" minlength="2" maxlength="30" required >
+              <span class="popup__error" id="place-name-error"></span>
+
+              <input class=" popup__input popup__input_el_link" id="link" type="url"
+              placeholder="Ссылка на картинку" name="inputPhotoLink" required>
+              <span class="popup__error" id="link-error"></span>
+
+              <button class="popup__button" type="submit" id="add-photo-button">Создать</button>
+            </form>
+          </div>
+        </div>
+        <div class="popup popup_type_image" id='popup_type_image'>
+          <div class="popup__container popup__container_type_image">
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="button_close_image"></button>
+            <figure class="popup__image-container">
+              <img src="#" alt="Картинка" class="popup__image">
+              <figcaption class="popup__caption"></figcaption>
+            </figure>
+          </div>
+        </div>
+      </main>
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+      </footer>
+    </div>
+    <template id="card">
+      <article class="element">
+        <button class="element__delete-button" type="button" aria-label="удалить фото"></button>
+        <img class="element__image" src="#" alt="картинка">
+        <div class="element__container">
+          <h2 class="element__title"></h2>
+          <button class="element__like" type="button" aria-label="лайк"></button>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>
