@@ -6,12 +6,12 @@ export default class UserInfo{
     this._inputJob = document.querySelector('.popup__input_el_job');
   }
 
-  setUserInfo(config){
+  getUserInfo(config){
     this._name.textContent = config.name;
     this._job.textContent = config.job;
     // принимает новые данные пользователя и добавляет на страницу
   }
-  getUserInfo(){
+  setUserInfo(){
     this._inputName.value = this._name.textContent;
     this._inputJob.value = this._job.textContent;
     // получает данные со страницы в переносит в инпут
