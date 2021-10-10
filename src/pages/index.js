@@ -6,7 +6,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import {initialCards, validationConfig, popupTypeImage, popupProfile, popupPlace, editProfileForm, editButton, profileName,
-  profileJob, addPhotoForm, addPhotoButton} from '../components/utils.js'
+  profileJob, addPhotoForm, addPhotoButton, insertValues} from '../components/utils.js'
 
 /** Валидация */
 const formProfile = new FormValidator(validationConfig, editProfileForm);
@@ -45,13 +45,13 @@ addPhotoButton.addEventListener('click', () => {
 /** Форма редактирования профиля */
 const profile = new UserInfo({nameSelector:profileName, jobSelector:profileJob});
 const profileForm = new PopupWithForm(popupProfile, {handleFormSubmit: (inputValues)=>{
-  profile.getUserInfo(inputValues);
+  profile.setUserInfo(inputValues);
 }});
  profileForm.setEventListeners();
 /** Обработчик кнопки редактирования профиля */
 editButton.addEventListener('click', () => {
   formProfile.resetValidation();
-  profile.setUserInfo();
+  insertValues(profile.getUserInfo());
   profileForm.open();
 });
 

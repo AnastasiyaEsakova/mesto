@@ -41,4 +41,9 @@ export const profileName = document.querySelector('.profile__name');
 export const profileJob = document.querySelector('.profile__description');
 export const addPhotoForm = document.querySelector('#add_photo_form');
 export const addPhotoButton = document.querySelector('.profile__button');
-
+const inputName = document.querySelector('.popup__input_el_name');
+const inputJob = document.querySelector('.popup__input_el_job');
+export const insertValues = (config) => {
+  inputName.value = config.name;
+  inputJob.value = config.job;
+};
