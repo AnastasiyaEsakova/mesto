@@ -13,7 +13,7 @@
       <main class="content">
         <section class="profile profile_page_size">
           <div class="profile__items">
-            <img src="<%=require('./images/avatar.jpg')%>" alt="Фото профиля" class="profile__avatar">
+            <div class="profile__avatar"><div class="profile__overlay"></div></div>
             <div class="profile__info">
               <div class="profile__fullname">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -32,15 +32,12 @@
             <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="button_close_profile"></button>
             <form class="popup__form" name="editProfileForm" id="edit_profile_form">
               <h2 class="popup__title">Редактировать профиль</h2>
-
               <input class="popup__input popup__input_el_name" id ="name-profile" name="name" type="text" value="Жак-Ив Кусто"
                placeholder="Имя" minlength="2" maxlength="40" required >
               <span class="popup__error" id="name-profile-error"></span>
-
               <input class=" popup__input popup__input_el_job" id="job-profile" type="text" value="Исследователь океана"
                placeholder="Описание" name="job" minlength="2" maxlength="200" required>
               <span class="popup__error" id="job-profile-error"></span>
-
               <button class="popup__button" type="submit">Сохранить</button>
             </form>
           </div>
@@ -50,15 +47,12 @@
             <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="button_close_place"></button>
             <form class="popup__form" name="addPhotoForm" id="add_photo_form" >
               <h2 class="popup__title">Новое место</h2>
-
               <input class="popup__input popup__input_el_place-name" id="place-name" type="text"
-              placeholder="Название" name="place" minlength="2" maxlength="30" required >
+              placeholder="Название" name="name" minlength="2" maxlength="30" required >
               <span class="popup__error" id="place-name-error"></span>
-
               <input class=" popup__input popup__input_el_link" id="link" type="url"
               placeholder="Ссылка на картинку" name="link" required>
               <span class="popup__error" id="link-error"></span>
-
               <button class="popup__button" type="submit" id="add-photo-button">Создать</button>
             </form>
           </div>
@@ -72,6 +66,24 @@
             </figure>
           </div>
         </div>
+        <div class="popup" id="popup_type_avatar">
+          <div class="popup__container">
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="button_close_place"></button>
+            <form class="popup__form" name="editAvatar" id="edit_avatar" >
+              <h2 class="popup__title">Обновить аватар</h2>
+              <input class=" popup__input popup__input_el_avatar" id="avatar" type="url"
+              placeholder="Ссылка на фото" name="avatar" required>
+              <span class="popup__error" id="avatar-error"></span>
+              <button class="popup__button" type="submit" id="edit-avatar-button">Сохранить</button>
+            </form>
+          </div>
+        <div class="popup" id="popup_type_check">
+          <div class="popup__container">
+            <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="button_close_ask"></button>
+            <h2 class="popup__title popup__title_el_check">Вы уверены?</h2>
+            <button class="popup__button popup__button_el_check" type="submit" id="add-photo-button">Да</button>
+          </div>
+        </div>
       </main>
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -83,7 +95,10 @@
         <img class="element__image" src="#" alt="картинка">
         <div class="element__container">
           <h2 class="element__title"></h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
+          <div class="element__like-container">
+            <button class="element__like" type="button" aria-label="лайк"></button>
+            <p class="element__like-numbers">1</p>
+          </div>
         </div>
       </article>
     </template>

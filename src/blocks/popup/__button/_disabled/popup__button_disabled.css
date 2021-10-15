@@ -5,7 +5,6 @@
   border: 1px solid #000;
   transition: none;
   cursor: default;
-  margin-top: 31.34px;
 }
 .popup__button_disabled:hover{
   opacity: 0.2;

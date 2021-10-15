@@ -20,8 +20,8 @@ popupImage.setEventListeners();
 
 /** Создание экземляра класса Card */
 const createCopyCard = (data) => {
-   const element = new Card({place:data.place, link:data.link, handleOpenImage: () => {
-    popupImage.open({place: data.place, link: data.link});
+   const element = new Card({name:data.name, link:data.link, handleOpenImage: () => {
+    popupImage.open({name: data.name, link: data.link});
   }},'#card').generateCard();
   cardList.addItem(element);
 };
