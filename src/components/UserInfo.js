@@ -1,7 +1,8 @@
 export default class UserInfo{
-  constructor({nameSelector, jobSelector}){
+  constructor({nameSelector, jobSelector, avatarSelector}){
     this._name = nameSelector;
     this._job = jobSelector;
+    this._avatar = avatarSelector;
   }
 /**возвращает объект с данными пользователя*/
   getUserInfo(){
@@ -15,5 +16,6 @@ export default class UserInfo{
   setUserInfo(config){
     this._name.textContent = config.name;
     this._job.textContent = config.job;
+    this._avatar.src = config.avatar;
   }
 }

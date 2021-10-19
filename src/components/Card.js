@@ -1,8 +1,10 @@
 export default class Card {
-  constructor ({name, link, handleOpenImage}, templateSelector){
-    this._name = name;
-    this._link = link;
+  constructor ({data, handleOpenImage, handleRemoveCard}, templateSelector){
+    this._name = data.name;
+    this._link = data.link;
+    this._likes = data.likes;
     this._handleOpenImage = handleOpenImage;
+    this._handleRemoveCard = handleRemoveCard;
     this._templateSelector = templateSelector;
   }
 
@@ -18,6 +20,7 @@ export default class Card {
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
+    this._element.querySelector('.element__like-numbers').textContent = this._likes;
     return this._element;
   }
 
@@ -36,9 +39,9 @@ export default class Card {
   _handleLike(){
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
   }
-  _handleRemoveCard(){
-    this._element.remove();
-    this._element = '';
-  }
+  // _handleRemoveCard(){
+  //   this._element.remove();
+  //   this._element = '';
+  // }
 }
 
