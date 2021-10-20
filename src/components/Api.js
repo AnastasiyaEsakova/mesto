@@ -37,7 +37,7 @@ export default class Api{
       },
       body: JSON.stringify({
         name: data.name,
-        about: data.job
+        about: data.about
       })
     })
     .then((res) => {
@@ -66,9 +66,8 @@ export default class Api{
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
-  deleteCard(data){
-    const a = `https://mesto.nomoreparties.co/v1/cohort-29/cards/${data._id}`
-    return fetch(a,{
+  deleteCard(cardId){
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-29/cards/${cardId}`,{
       method: 'DELETE',
       headers: {
         authorization: '0b6e9c86-816e-4cef-834f-31796e0eee5d',
@@ -76,23 +75,26 @@ export default class Api{
       }
     })
   }
-  setLike(data){
-    const a = `https://mesto.nomoreparties.co/v1/cohort-29/cards/likes/${data._id}`
-    return fetch(a, {
+  setLike(cardId){
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-29/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: {
-        authorization: '0b6e9c86-816e-4cef-834f-31796e0eee5d',
-        'Content-Type': 'multipart/form-data'
+        authorization: '0b6e9c86-816e-4cef-834f-31796e0eee5d'
       }
+    })
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
-  deleteLIke(data){
-    const a = `https://mesto.nomoreparties.co/v1/cohort-29/cards/likes/${cardId}`
-    return fetch(a, {
+  deleteLIke(cardId){
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-29/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: '0b6e9c86-816e-4cef-834f-31796e0eee5d',
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json'
       }
     })
     .then((res) => {

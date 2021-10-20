@@ -51,8 +51,11 @@ const inputName = document.querySelector('.popup__input_el_name');
 const inputJob = document.querySelector('.popup__input_el_job');
 export const insertValues = (config) => {
   inputName.value = config.name;
-  inputJob.value = config.job;
+  inputJob.value = config.about;
 };
 
 export const avatar = document.querySelector('.profile__avatar');
 export const editAvatarForm = document.querySelector('#edit_avatar');
+export const popupDelete = document.querySelector('#popup_type_check');
+export const popupAvatar = document.querySelector('#popup_type_avatar');
+export const editAvatarButton = document.querySelector('.profile__overlay');

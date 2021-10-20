@@ -13,7 +13,8 @@
       <main class="content">
         <section class="profile profile_page_size">
           <div class="profile__items">
-            <div class="profile__avatar"><div class="profile__overlay"></div></div>
+            <div class="profile__overlay"></div>
+            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
             <div class="profile__info">
               <div class="profile__fullname">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -36,7 +37,7 @@
                placeholder="Имя" minlength="2" maxlength="40" required >
               <span class="popup__error" id="name-profile-error"></span>
               <input class=" popup__input popup__input_el_job" id="job-profile" type="text" value="Исследователь океана"
-               placeholder="Описание" name="job" minlength="2" maxlength="200" required>
+               placeholder="Описание" name="about" minlength="2" maxlength="200" required>
               <span class="popup__error" id="job-profile-error"></span>
               <button class="popup__button" type="submit">Сохранить</button>
             </form>
@@ -77,11 +78,14 @@
               <button class="popup__button" type="submit" id="edit-avatar-button">Сохранить</button>
             </form>
           </div>
+        </div>
         <div class="popup" id="popup_type_check">
           <div class="popup__container">
             <button class="popup__close-icon" type="button" aria-label="закрыть форму" id="button_close_ask"></button>
-            <h2 class="popup__title popup__title_el_check">Вы уверены?</h2>
-            <button class="popup__button popup__button_el_check" type="submit" id="add-photo-button">Да</button>
+            <form class="popup__form">
+              <h2 class="popup__title popup__title_el_check">Вы уверены?</h2>
+              <button class="popup__button popup__button_el_check" type="submit" id="delete-button">Да</button>
+            </form>
           </div>
         </div>
       </main>
