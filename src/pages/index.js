@@ -10,6 +10,7 @@ import Api from '../components/Api.js';
 import {validationConfig, popupTypeImage, popupProfile, popupPlace, editProfileForm, editProfileButton, profileName,
   profileJob, addPhotoForm, addPhotoButton, insertValues, avatar, editAvatarForm, popupDelete, popupAvatar, editAvatarButton} from '../components/utils.js';
 
+  /**API */
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-29',
   headers: {
@@ -30,41 +31,60 @@ formEditAvatar.enableValidation();
 const popupImage = new PopupWithImage(popupTypeImage);
 popupImage.setEventListeners();
 
-/** Попап удаления карточки*/
-const popupDeleteImage = new PopupWithConfirmation(popupDelete, {
-  handleSubmitDelete: (id) => {
-    api.deleteCard(id)
-    .then(() => {
-      getCards();
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  }
+/**PROFILE */
+/** Форма редактирования профиля */
+const profileButton = document.querySelector('#edit-profile-button');
+const profile = new UserInfo({nameSelector:profileName, jobSelector:profileJob, avatarSelector: avatar});
+const profileForm = new PopupWithForm(popupProfile, {handleFormSubmit: (inputValues)=>{
+  api.setProfileInfo(inputValues, profileButton)
+  .then((data) => {
+    profile.setUserInfo({name: data.name, about: data.about, avatar: data.avatar});
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}});
+ profileForm.setEventListeners();
+/** Обработчик кнопки редактирования профиля */
+editProfileButton.addEventListener('click', () => {
+  formProfile.resetValidation();
+  insertValues(profile.getUserInfo());
+  profileForm.open();
 });
-popupDeleteImage.setEventListeners();
 
+api.getProfileInfo()
+  .then((data) => {
+    profile.setUserInfo(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+/**CARDS */
 /** Создание экземляра класса Card */
 const createCopyCard = (data) => {
-   return new Card({data, handleOpenImage: () => {
+   const card =  new Card({data, handleOpenImage: () => {
     popupImage.open({name: data.name, link: data.link});
-    }, handleRemoveCard: (id) => {
+    }, handleRemoveCard: (id, element) => {
     popupDeleteImage.open();
-    popupDeleteImage.getCardId(id);
+    popupDeleteImage.getCard(id, element);
 }, handleLike:{
-    handleSetLike: (id) => {
+    handleSetLike: (id, element) => {
       api.setLike(id)
-      .then(res => {
-        getCards();
+      .then((res) => {
+        element.querySelector('.element__like-numbers').textContent = res.likes.length;
+        console.log(res.likes.length);
       })
     },
-    handleDeleteLike: (id) => {
+    handleDeleteLike: (id, element) => {
       api.deleteLIke(id)
-      .then(res => {
-        getCards();
+      .then((res) => {
+        console.log(res.likes.length);
+          element.querySelector('.element__like-numbers').textContent = res.likes.length;
       })
   }
    }},'#card').generateCard();
+   return card
 };
 
 /** Создание карточек */
@@ -83,11 +103,12 @@ const getCards =() =>{
 getCards();
 
 /** Форма добавления новой карточки */
+const cardButton = document.querySelector('#add-photo-button');
 const addFhotoForm = new PopupWithForm(popupPlace, {handleFormSubmit: (inputValues) =>{
-  api.setNewCard(inputValues)
+  api.setNewCard(inputValues, cardButton)
   .then((data) => {
     const cardSection = new Section({},'.elements');
-    cardSection.addItem(createCopyCard(data));
+    cardSection.addNewItem(createCopyCard(data));
   })
   .catch((err) => {
     console.log(err);
@@ -100,38 +121,26 @@ addPhotoButton.addEventListener('click', () => {
   addFhotoForm.open();
 });
 
-/** Форма редактирования профиля */
-const profile = new UserInfo({nameSelector:profileName, jobSelector:profileJob, avatarSelector: avatar});
-const profileForm = new PopupWithForm(popupProfile, {handleFormSubmit: (inputValues)=>{
-  api.setProfileInfo(inputValues)
-  .then((data) => {
-    profile.setUserInfo({name: data.name, about: data.about, avatar: data.avatar});
-    console.log(res.avatar)
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-}});
- profileForm.setEventListeners();
-/** Обработчик кнопки редактирования профиля */
-editProfileButton.addEventListener('click', () => {
-  formProfile.resetValidation();
-  insertValues(profile.getUserInfo());
-  profileForm.open();
+/** Попап удаления карточки*/
+const popupDeleteImage = new PopupWithConfirmation(popupDelete, {
+  handleSubmitDelete: (id, element) => {
+    api.deleteCard(id)
+    .then(() => {
+      element.remove();
+      element = '';
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
 });
+popupDeleteImage.setEventListeners();
 
-
-api.getProfileInfo()
-  .then((data) => {
-    profile.setUserInfo(data);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-
+//**AVATAR */
 /** Форма редактирования аватара */
+const avatarButton = document.querySelector('#edit-avatar-button');
 const avatarForm = new PopupWithForm(popupAvatar, {handleFormSubmit: (inputValues) => {
-  api.changeAvatar(inputValues)
+  api.changeAvatar(inputValues, avatarButton)
   .then((res) => {
     profile.setUserInfo({avatar: res.avatar, name: res.name, about: res.about});
   })
