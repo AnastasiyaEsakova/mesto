@@ -6,15 +6,15 @@ export default class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`Ошибка: ${res.status}, ${res.statusText}`);
+      return Promise.reject(`Произошла ошибка: ${res.status} :(`);
     });
   }
   /**Cards */
   getInitialCards(){
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-29/cards', {
     headers: this._headers
   })
-    .then((res) => this._handleReturnPromise(res));
+  .then((res) => this._handleReturnPromise(res));
   }
   setNewCard(data, button){
     this.renderLoading(true, button);

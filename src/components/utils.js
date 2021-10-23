@@ -1,35 +1,3 @@
-// export const initialCards = [
-//   {
-//     name: 'Архыз',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-//     likes: 10
-//   },
-//   {
-//     name: 'Челябинская область',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-//     likes: 6
-//   },
-//   {
-//     name: 'Иваново',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-//     likes: 2
-//   },
-//   {
-//     name: 'Камчатка',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-//     likes: 5
-//   },
-//   {
-//     name: 'Холмогорский район',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-//     likes: 7
-//   },
-//   {
-//     name: 'Байкал',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-//     likes: 8
-//   }
-// ];
 export const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -59,3 +27,7 @@ export const editAvatarForm = document.querySelector('#edit_avatar');
 export const popupDelete = document.querySelector('#popup_type_check');
 export const popupAvatar = document.querySelector('#popup_type_avatar');
 export const editAvatarButton = document.querySelector('.profile__overlay');
+
+
+export const popupError = document.querySelector('#popup_type_error');
+export const errorText = document.querySelector('#title_error');

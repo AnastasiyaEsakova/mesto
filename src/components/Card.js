@@ -7,8 +7,8 @@ export default class Card {
     this._user = data.owner._id;
     this._handleOpenImage = handleOpenImage;
     this._handleRemoveCard = handleRemoveCard;
-    this._templateSelector = templateSelector;
     this._handleLike = handleLike;
+    this._templateSelector = templateSelector;
   }
 
   _getTemplate () {
@@ -25,18 +25,23 @@ export default class Card {
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
-    this.checkLike();
+    this._checkLike();
     if(this._user !== 'e2bea12969d07f3a17cf7cd5'){
       this._deveteButton.remove();
     }
     return this._element;
   }
-  checkLike(){
-   this._element.querySelector('.element__like-numbers').textContent = this._likes.length;
+  _checkLike(){
+    if(this._likes.length !== 0){
+      this._element.querySelector('.element__like-numbers').textContent = this._likes.length;
+    } else{
+      this._element.querySelector('.element__like-numbers').textContent = '';
+    }
     this._likes.forEach((like) => {
       if(like._id === 'e2bea12969d07f3a17cf7cd5'){
         this._elementLike.classList.add('element__like_active');
     }});
+
   }
 
   _setEventListeners(){
@@ -49,14 +54,11 @@ export default class Card {
         this._elementLike.classList.remove('element__like_active');
       };
     });
-    this._deveteButton.addEventListener('click', () => {
-      this._handleRemoveCard(this._id, this._element);
-    });
-    // if(this._user === 'e2bea12969d07f3a17cf7cd5'){
-    //   this._deveteButton.addEventListener('click', () => {
-    //     this._handleRemoveCard(this._id, this._element);
-    //   });
-    // }
+    if(this._user === 'e2bea12969d07f3a17cf7cd5'){
+      this._deveteButton.addEventListener('click', () => {
+        this._handleRemoveCard(this._id, this._element);
+      });
+    }
     this._elementImage.addEventListener('click', () => {
       this._handleOpenImage();
     });

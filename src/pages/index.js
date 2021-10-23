@@ -8,7 +8,8 @@ import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import {validationConfig, popupTypeImage, popupProfile, popupPlace, editProfileForm, editProfileButton, profileName,
-  profileJob, addPhotoForm, addPhotoButton, insertValues, avatar, editAvatarForm, popupDelete, popupAvatar, editAvatarButton} from '../components/utils.js';
+  profileJob, addPhotoForm, addPhotoButton, insertValues, avatar, editAvatarForm, popupDelete, popupAvatar, editAvatarButton,
+  popupError, errorText} from '../components/utils.js';
 
   /**API */
 const api = new Api({
@@ -41,7 +42,8 @@ const profileForm = new PopupWithForm(popupProfile, {handleFormSubmit: (inputVal
     profile.setUserInfo({name: data.name, about: data.about, avatar: data.avatar});
   })
   .catch((err) => {
-    console.log(err);
+    errorText.textContent = err;
+    popupError.classList.add('popup_opened');
   });
 }});
  profileForm.setEventListeners();
@@ -55,33 +57,50 @@ editProfileButton.addEventListener('click', () => {
 api.getProfileInfo()
   .then((data) => {
     profile.setUserInfo(data);
+    popupError.classList.remove('popup_opened');
   })
   .catch((err) => {
-    console.log(err);
+    errorText.textContent = err;
+    popupError.classList.add('popup_opened');
   });
 
 /**CARDS */
 /** Создание экземляра класса Card */
 const createCopyCard = (data) => {
-   const card =  new Card({data, handleOpenImage: () => {
-    popupImage.open({name: data.name, link: data.link});
-    }, handleRemoveCard: (id, element) => {
-    popupDeleteImage.open();
-    popupDeleteImage.getCard(id, element);
-}, handleLike:{
-    handleSetLike: (id, element) => {
-      api.setLike(id)
-      .then((res) => {
-        element.querySelector('.element__like-numbers').textContent = res.likes.length;
-        console.log(res.likes.length);
+   const card =  new Card({data,
+    handleOpenImage: () => {
+      popupImage.open({name: data.name, link: data.link});
+    },
+    handleRemoveCard: (id, element) => {
+      popupDeleteImage.open();
+      popupDeleteImage.getCard(id, element);
+    },
+    handleLike:{
+      handleSetLike: (id, element) => {
+        api.setLike(id)
+        .then((res) => {
+          element.querySelector('.element__like-numbers').textContent = res.likes.length;
+          popupError.classList.remove('popup_opened');
+      })
+        .catch(err => {
+        errorText.textContent = err;
+        popupError.classList.add('popup_opened');
       })
     },
-    handleDeleteLike: (id, element) => {
-      api.deleteLIke(id)
-      .then((res) => {
-        console.log(res.likes.length);
-          element.querySelector('.element__like-numbers').textContent = res.likes.length;
+      handleDeleteLike: (id, element) => {
+        api.deleteLIke(id)
+        .then((res) => {
+          if(res.likes.length !== 0){
+            element.querySelector('.element__like-numbers').textContent = res.likes.length;
+          } else{
+            element.querySelector('.element__like-numbers').textContent = '';
+        };
+          popupError.classList.remove('popup_opened');
       })
+        .catch(err => {
+        errorText.textContent = err;
+        popupError.classList.add('popup_opened');
+      });
   }
    }},'#card').generateCard();
    return card
@@ -95,9 +114,11 @@ const getCards =() =>{
       cardList.addItem(createCopyCard(item));
     }}, '.elements');
     cardList.renderItem();
+    popupError.classList.remove('popup_opened');
   })
   .catch((err) => {
-    console.log(err);
+    errorText.textContent = err;
+    popupError.classList.add('popup_opened');
   });
 }
 getCards();
@@ -109,9 +130,11 @@ const addFhotoForm = new PopupWithForm(popupPlace, {handleFormSubmit: (inputValu
   .then((data) => {
     const cardSection = new Section({},'.elements');
     cardSection.addNewItem(createCopyCard(data));
+    popupError.classList.remove('popup_opened');
   })
   .catch((err) => {
-    console.log(err);
+    errorText.textContent = err;
+    popupError.classList.add('popup_opened');
   })
 }});
 addFhotoForm.setEventListeners();
@@ -128,9 +151,11 @@ const popupDeleteImage = new PopupWithConfirmation(popupDelete, {
     .then(() => {
       element.remove();
       element = '';
+      popupError.classList.remove('popup_opened');
     })
     .catch(err => {
-      console.log(err);
+      errorText.textContent = err;
+      popupError.classList.add('popup_opened');
     });
   }
 });
@@ -143,9 +168,11 @@ const avatarForm = new PopupWithForm(popupAvatar, {handleFormSubmit: (inputValue
   api.changeAvatar(inputValues, avatarButton)
   .then((res) => {
     profile.setUserInfo({avatar: res.avatar, name: res.name, about: res.about});
+    popupError.classList.remove('popup_opened');
   })
   .catch((err) => {
-    console.log(err);
+    errorText.textContent = err;
+    popupError.classList.add('popup_opened');
   });
 }});
 avatarForm.setEventListeners();
