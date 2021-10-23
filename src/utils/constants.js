@@ -21,13 +21,8 @@ export const insertValues = (config) => {
   inputName.value = config.name;
   inputJob.value = config.about;
 };
-
 export const avatar = document.querySelector('.profile__avatar');
 export const editAvatarForm = document.querySelector('#edit_avatar');
 export const popupDelete = document.querySelector('#popup_type_check');
 export const popupAvatar = document.querySelector('#popup_type_avatar');
 export const editAvatarButton = document.querySelector('.profile__overlay');
-
-
-export const popupError = document.querySelector('#popup_type_error');
-export const errorText = document.querySelector('#title_error');

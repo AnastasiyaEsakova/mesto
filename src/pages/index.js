@@ -9,7 +9,8 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import {validationConfig, popupTypeImage, popupProfile, popupPlace, editProfileForm, editProfileButton, profileName,
   profileJob, addPhotoForm, addPhotoButton, insertValues, avatar, editAvatarForm, popupDelete, popupAvatar, editAvatarButton,
-  popupError, errorText} from '../components/utils.js';
+  } from '../utils/constants.js';
+let userId = '';
 
   /**API */
 const api = new Api({
@@ -19,6 +20,17 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 });
+
+const promises = [api.getInitialCards(), api.getProfileInfo()];
+Promise.all(promises)
+  .then((res) => {
+    userId = res[1]._id;
+    sectionCards.renderItem(res[0]);
+    profile.setUserInfo(res[1]);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 
 /** Валидация */
 const formProfile = new FormValidator(validationConfig, editProfileForm);
@@ -34,16 +46,18 @@ popupImage.setEventListeners();
 
 /**PROFILE */
 /** Форма редактирования профиля */
-const profileButton = document.querySelector('#edit-profile-button');
-const profile = new UserInfo({nameSelector:profileName, jobSelector:profileJob, avatarSelector: avatar});
+const profile = new UserInfo({nameElement:profileName, jobElement:profileJob, avatarElement: avatar});
 const profileForm = new PopupWithForm(popupProfile, {handleFormSubmit: (inputValues)=>{
-  api.setProfileInfo(inputValues, profileButton)
+  api.setProfileInfo(inputValues)
   .then((data) => {
     profile.setUserInfo({name: data.name, about: data.about, avatar: data.avatar});
+    profileForm.close();
   })
   .catch((err) => {
-    errorText.textContent = err;
-    popupError.classList.add('popup_opened');
+    console.log(err);
+  })
+  .finally(() => {
+    profileForm.renderLoading(false);
   });
 }});
  profileForm.setEventListeners();
@@ -54,20 +68,10 @@ editProfileButton.addEventListener('click', () => {
   profileForm.open();
 });
 
-api.getProfileInfo()
-  .then((data) => {
-    profile.setUserInfo(data);
-    popupError.classList.remove('popup_opened');
-  })
-  .catch((err) => {
-    errorText.textContent = err;
-    popupError.classList.add('popup_opened');
-  });
-
 /**CARDS */
 /** Создание экземляра класса Card */
 const createCopyCard = (data) => {
-   const card =  new Card({data,
+   const card =  new Card({data, userId,
     handleOpenImage: () => {
       popupImage.open({name: data.name, link: data.link});
     },
@@ -76,66 +80,46 @@ const createCopyCard = (data) => {
       popupDeleteImage.getCard(id, element);
     },
     handleLike:{
-      handleSetLike: (id, element) => {
+      handleSetLike: (id) => {
         api.setLike(id)
         .then((res) => {
-          element.querySelector('.element__like-numbers').textContent = res.likes.length;
-          popupError.classList.remove('popup_opened');
+          card.updateLikes(res.likes.length);
       })
         .catch(err => {
-        errorText.textContent = err;
-        popupError.classList.add('popup_opened');
+          console.log(err);
       })
     },
-      handleDeleteLike: (id, element) => {
+      handleDeleteLike: (id) => {
         api.deleteLIke(id)
         .then((res) => {
-          if(res.likes.length !== 0){
-            element.querySelector('.element__like-numbers').textContent = res.likes.length;
-          } else{
-            element.querySelector('.element__like-numbers').textContent = '';
-        };
-          popupError.classList.remove('popup_opened');
+          card.updateLikes(res.likes.length);
       })
         .catch(err => {
-        errorText.textContent = err;
-        popupError.classList.add('popup_opened');
+          console.log(err);
       });
   }
-   }},'#card').generateCard();
-   return card
+   }},'#card');
+   return card.generateCard()
 };
 
-/** Создание карточек */
-const getCards =() =>{
-  api.getInitialCards()
-  .then((data) => {
-    const cardList = new Section({items:data, renderer: (item) =>{
-      cardList.addItem(createCopyCard(item));
-    }}, '.elements');
-    cardList.renderItem();
-    popupError.classList.remove('popup_opened');
-  })
-  .catch((err) => {
-    errorText.textContent = err;
-    popupError.classList.add('popup_opened');
-  });
-}
-getCards();
+const sectionCards = new Section({renderer: (item) => {
+  sectionCards.addItem(createCopyCard(item));
+}}, '.elements');
+
 
 /** Форма добавления новой карточки */
-const cardButton = document.querySelector('#add-photo-button');
 const addFhotoForm = new PopupWithForm(popupPlace, {handleFormSubmit: (inputValues) =>{
-  api.setNewCard(inputValues, cardButton)
+  api.setNewCard(inputValues)
   .then((data) => {
-    const cardSection = new Section({},'.elements');
-    cardSection.addNewItem(createCopyCard(data));
-    popupError.classList.remove('popup_opened');
+    sectionCards.addNewItem(createCopyCard(data));
+    addFhotoForm.close();
   })
   .catch((err) => {
-    errorText.textContent = err;
-    popupError.classList.add('popup_opened');
+    console.log(err);
   })
+  .finally(() => {
+    addFhotoForm.renderLoading(false);
+  });
 }});
 addFhotoForm.setEventListeners();
 /**  Обработчик клика по кнопке добавления карточки */
@@ -151,11 +135,10 @@ const popupDeleteImage = new PopupWithConfirmation(popupDelete, {
     .then(() => {
       element.remove();
       element = '';
-      popupError.classList.remove('popup_opened');
+      popupDeleteImage.close();
     })
     .catch(err => {
-      errorText.textContent = err;
-      popupError.classList.add('popup_opened');
+      console.log(err);
     });
   }
 });
@@ -163,16 +146,17 @@ popupDeleteImage.setEventListeners();
 
 //**AVATAR */
 /** Форма редактирования аватара */
-const avatarButton = document.querySelector('#edit-avatar-button');
 const avatarForm = new PopupWithForm(popupAvatar, {handleFormSubmit: (inputValues) => {
-  api.changeAvatar(inputValues, avatarButton)
+  api.changeAvatar(inputValues)
   .then((res) => {
     profile.setUserInfo({avatar: res.avatar, name: res.name, about: res.about});
-    popupError.classList.remove('popup_opened');
+    avatarForm.close();
   })
   .catch((err) => {
-    errorText.textContent = err;
-    popupError.classList.add('popup_opened');
+    console.log(err);
+  })
+  .finally(() => {
+    avatarForm.renderLoading(false);
   });
 }});
 avatarForm.setEventListeners();
@@ -181,5 +165,4 @@ editAvatarButton.addEventListener('click', () => {
   avatarForm.open();
   formEditAvatar.resetValidation();
 });
-
 

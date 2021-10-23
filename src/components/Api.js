@@ -11,13 +11,12 @@ export default class Api{
   }
   /**Cards */
   getInitialCards(){
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-29/cards', {
+    return fetch(`${this._baseUrl}/cards`, {
     headers: this._headers
   })
   .then((res) => this._handleReturnPromise(res));
   }
-  setNewCard(data, button){
-    this.renderLoading(true, button);
+  setNewCard(data){
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
@@ -26,10 +25,7 @@ export default class Api{
         link: data.link
       })
     })
-    .then((res) => this._handleReturnPromise(res))
-    .finally(() =>{
-      this.renderLoading(false, button);
-    });
+    .then((res) => this._handleReturnPromise(res));
   }
   deleteCard(cardId){
     return fetch(`${this._baseUrl}/cards/${cardId}`,{
@@ -62,8 +58,7 @@ export default class Api{
     .then((res) => this._handleReturnPromise(res));
   }
 
-  setProfileInfo(data, button){
-    this.renderLoading(true, button);
+  setProfileInfo(data){
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -72,15 +67,11 @@ export default class Api{
         about: data.about
       })
     })
-    .then((res) => this._handleReturnPromise(res))
-    .finally(() =>{
-      this.renderLoading(false, button);
-    });
+    .then((res) => this._handleReturnPromise(res));
   }
 
   /**Avatar */
-  changeAvatar(data, button){
-    this.renderLoading(true, button);
+  changeAvatar(data){
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -88,19 +79,6 @@ export default class Api{
        avatar: data.avatar
       })
     })
-    .then((res) => this._handleReturnPromise(res))
-    .finally(() =>{
-      this.renderLoading(false);
-    });
-  }
-
-  renderLoading(isLoading,button){
-    this._buttonElement = button;
-    if(isLoading){
-      this._buttonElement.textContent = 'Сохранение...';
-    } else {
-      this._buttonElement.textContent = this._buttonElement.value;
-    }
-    this._buttonElement = '';
+    .then((res) => this._handleReturnPromise(res));
   }
 }

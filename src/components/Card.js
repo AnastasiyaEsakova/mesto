@@ -1,10 +1,11 @@
 export default class Card {
-  constructor ({data, handleOpenImage, handleRemoveCard, handleLike}, templateSelector){
+  constructor ({data, userId, handleOpenImage, handleRemoveCard, handleLike}, templateSelector){
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._id = data._id;
-    this._user = data.owner._id;
+    this._cardUserId = data.owner._id;
+    this._user = userId;
     this._handleOpenImage = handleOpenImage;
     this._handleRemoveCard = handleRemoveCard;
     this._handleLike = handleLike;
@@ -26,7 +27,7 @@ export default class Card {
     this._elementImage.alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
     this._checkLike();
-    if(this._user !== 'e2bea12969d07f3a17cf7cd5'){
+    if(this._user !== this._cardUserId){
       this._deveteButton.remove();
     }
     return this._element;
@@ -38,23 +39,19 @@ export default class Card {
       this._element.querySelector('.element__like-numbers').textContent = '';
     }
     this._likes.forEach((like) => {
-      if(like._id === 'e2bea12969d07f3a17cf7cd5'){
+      if(like._id === this._user){
         this._elementLike.classList.add('element__like_active');
     }});
-
   }
-
   _setEventListeners(){
     this._elementLike.addEventListener('click', () => {
       if(!this._elementLike.classList.contains('element__like_active')){
-        this._handleLike.handleSetLike(this._id, this._element);
-        this._elementLike.classList.add('element__like_active');
+        this._handleLike.handleSetLike(this._id);
       } else {
-        this._handleLike.handleDeleteLike(this._id, this._element);
-        this._elementLike.classList.remove('element__like_active');
+        this._handleLike.handleDeleteLike(this._id);
       };
     });
-    if(this._user === 'e2bea12969d07f3a17cf7cd5'){
+    if(this._user === this._cardUserId){
       this._deveteButton.addEventListener('click', () => {
         this._handleRemoveCard(this._id, this._element);
       });
@@ -62,6 +59,14 @@ export default class Card {
     this._elementImage.addEventListener('click', () => {
       this._handleOpenImage();
     });
+  }
+  updateLikes(likes){
+    this._elementLike.classList.toggle('element__like_active');
+    if(likes !== 0){
+      this._element.querySelector('.element__like-numbers').textContent = likes;
+    } else{
+      this._element.querySelector('.element__like-numbers').textContent = '';
+    }
   }
 }
 
