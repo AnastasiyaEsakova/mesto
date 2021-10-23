@@ -15,4 +15,5 @@
 В дальнейшем планируется добавить возможность оставлять комментарии от других пользователей, добавлять картинки прямо с компьюера, изменять фото профиля.
 
 ## Демоверсия сайта
-https://anastasiyaesakova.github.io/mesto/index.html
+* https://anastasiyaesakova.github.io/mesto/index.html
+* https://anastasiyaesakova.github.io/mesto/
